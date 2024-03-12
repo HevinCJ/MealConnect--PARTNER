@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/meal_nav"
+    app:startDestination="@id/dashboard">
+    <fragment
+        android:id="@+id/dashboard"
+        android:name="com.example.mealconnect.fragments.dashboard"
+        android:label="fragment_dashboard"
+        tools:layout="@layout/fragment_dashboard" >
+        <action
+            android:id="@+id/action_dashboard_to_addmeal"
+            app:destination="@id/addmeal" />
+        <action
+            android:id="@+id/action_dashboard_to_updataMeal"
+            app:destination="@id/updataMeal" />
+        <action
+            android:id="@+id/action_dashboard_to_profile"
+            app:destination="@id/profile" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/addmeal"
+        android:name="com.example.mealconnect.fragments.add.addmeal"
+        android:label="addmeal" >
+        <action
+            android:id="@+id/action_addmeal_to_dashboard"
+            app:destination="@id/dashboard" />
+        <action
+            android:id="@+id/action_addmeal_to_mapsFragment"
+            app:destination="@id/mapsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mapsFragment"
+        android:name="com.example.mealconnect.MapsFragment"
+        android:label="fragment_maps"
+        tools:layout="@layout/fragment_maps" >
+        <action
+            android:id="@+id/action_mapsFragment_to_addmeal"
+            app:destination="@id/addmeal" />
+    </fragment>
+    <fragment
+        android:id="@+id/updataMeal"
+        android:name="com.example.mealconnect.UpdataMeal"
+        android:label="fragment_updata_meal"
+        tools:layout="@layout/fragment_updata_meal" >
+        <action
+            android:id="@+id/action_updataMeal_to_dashboard"
+            app:destination="@id/dashboard" />
+        <argument
+            android:name="CurrentMeal"
+            app:argType="com.example.mealconnect.utils.UserData" />
+    </fragment>
+    <fragment
+        android:id="@+id/orders"
+        android:name="com.example.mealconnect.Orders"
+        android:label="fragment_orders"
+        tools:layout="@layout/fragment_orders" />
+    <fragment
+        android:id="@+id/profile"
+        android:name="com.example.mealconnect.Profile"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+</navigation>

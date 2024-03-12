@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "289426590044",
+    "project_id": "mealconnect-22930",
+    "storage_bucket": "mealconnect-22930.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:289426590044:android:b3ee79501c0df0da1f1999",
+        "android_client_info": {
+          "package_name": "com.example.mealconnect"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASpzjsk0ZeTRj88VdVfY1ET40UiiX-Xc4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

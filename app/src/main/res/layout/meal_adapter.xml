@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="userdata"
+            type="com.example.mealconnect.utils.UserData" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginTop="3dp"
+        android:adapterToUpdateFragment="@{userdata}"
+        android:background="@drawable/dashboard_ui_background"
+        >
+
+        <ImageView
+            android:id="@+id/imgviwmeal"
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:layout_margin="3dp"
+            android:convertlinktoimage="@{userdata.image}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtviewname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:text="@{userdata.mealname}"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/imgviwmeal"
+            app:layout_constraintTop_toTopOf="@+id/imgviwmeal"
+            tools:text="Burger" />
+
+        <TextView
+            android:id="@+id/txtviewprice"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:text='@{userdata.amount + " " + @string/pricetag}'
+            android:textSize="17sp"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toTopOf="@+id/txtviewdescp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/txtviewname"
+            app:layout_constraintTop_toBottomOf="@+id/txtviewname"
+            app:layout_constraintVertical_bias="0.0"
+            tools:text="100" />
+
+        <TextView
+            android:id="@+id/txtviewdescp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="3dp"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:maxLines="3"
+            android:text="@{userdata.descp}"
+            android:textSize="13sp"
+            android:textStyle="italic"
+            app:layout_constraintBottom_toBottomOf="@+id/imgviwmeal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/txtviewprice"
+            app:layout_constraintTop_toBottomOf="@+id/txtviewprice"
+            tools:text="Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
