@@ -14,7 +14,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:fontFamily="cursive"
-        android:text="Welcome"
+        android:text="Let's get started"
         android:textColor="@color/black"
         android:textSize="50sp"
         android:textStyle="bold"
@@ -40,7 +40,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.19999999" />
 
     <EditText
         android:id="@+id/edttextpassword"
@@ -85,16 +85,6 @@
         app:layout_constraintStart_toStartOf="@+id/edttextpasswordconfirm"
         app:layout_constraintTop_toBottomOf="@+id/edttextpasswordconfirm" />
 
-    <Button
-        android:id="@+id/skipnowbutton1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        android:backgroundTint="#93A9E3"
-        android:text="Skip"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signupbtn" />
 
     <TextView
         android:id="@+id/txtviewlogin"
@@ -104,22 +94,22 @@
         android:text="Already a User:"
         android:textSize="15sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/skipnowbutton1" />
+        app:layout_constraintEnd_toEndOf="@+id/signupbtn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/signupbtn"
+        app:layout_constraintTop_toBottomOf="@+id/signupbtn" />
 
     <TextView
         android:id="@+id/txtviewloginclicker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Login"
         android:layout_marginStart="8sp"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        android:textColor="#B5D7F3"
         android:clickable="true"
         android:focusable="true"
+        android:text="Login"
+        android:textColor="@color/yellow"
+        android:textSize="15sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/txtviewlogin"
         app:layout_constraintStart_toEndOf="@+id/txtviewlogin"
         app:layout_constraintTop_toTopOf="@+id/txtviewlogin"

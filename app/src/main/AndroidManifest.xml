@@ -31,16 +31,12 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/apikey" />
+            android:value="AIzaSyA4gBqywy07IZj87wge9yvAubTWgYOkIbE" />
 
         <activity
             android:name=".fragments.MainActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:exported="false">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <meta-data

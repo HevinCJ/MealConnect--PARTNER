@@ -75,19 +75,41 @@
         android:layout_marginTop="16dp"
         android:background="@drawable/button_background"
         android:text="Login"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="@+id/edttextpassword"
         app:layout_constraintStart_toStartOf="@+id/edttextpassword"
         app:layout_constraintTop_toBottomOf="@+id/edttextpassword" />
 
-    <Button
-        android:id="@+id/skipnowbutton1"
+    <TextView
+        android:id="@+id/txtviewlogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        android:backgroundTint="#93A9E3"
-        android:text="Skip"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Not a User ?:"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/loginbutton"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toStartOf="@+id/loginbutton"
         app:layout_constraintTop_toBottomOf="@+id/loginbutton" />
+
+
+
+    <TextView
+        android:id="@+id/txtviewsignup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sign Up"
+        android:layout_marginStart="8sp"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textColor="@color/yellow"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintBottom_toBottomOf="@+id/txtviewlogin"
+        app:layout_constraintStart_toEndOf="@+id/txtviewlogin"
+        app:layout_constraintTop_toTopOf="@+id/txtviewlogin"
+        app:layout_constraintVertical_bias="0.71000004" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 

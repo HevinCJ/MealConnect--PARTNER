@@ -1,6 +1,8 @@
 package com.example.mealconnect.fragments
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -22,16 +24,17 @@ class signup : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         signup = FragmentSignupBinding.inflate(layoutInflater,container,false)
 
         auth = FirebaseAuth.getInstance()
-        databasereference = FirebaseDatabase.getInstance().getReference("Users")
+        databasereference = FirebaseDatabase.getInstance().getReference("Users").child(auth.currentUser?.uid.orEmpty())
+
+
 
         binding.txtviewloginclicker.setOnClickListener {
-
+            findNavController().navigate(R.id.action_signup2_to_login)
         }
-
 
 
       binding.signupbtn.setOnClickListener {
@@ -53,9 +56,14 @@ class signup : Fragment() {
 
             auth.createUserWithEmailAndPassword(email,password).addOnCompleteListener {
                 if (it.isSuccessful){
-                    Toast.makeText(requireContext(),"Logged In",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(),"Signed In",Toast.LENGTH_SHORT).show()
+                    val intent = Intent(requireActivity(), MainActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
+                    requireActivity().finish()
                 }else{
                     Toast.makeText(requireContext(),it.exception?.message,Toast.LENGTH_SHORT).show()
+                    Log.d("messageexception",it.exception?.message.toString())
                 }
             }
         }else{

@@ -4,17 +4,105 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Profile">
+    tools:context=".fragments.Profile">
 
 
-    <Button
-        android:id="@+id/logoutbtn"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/txtviewhello"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="@string/log_out"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="cursive"
+        android:text="Welcome,"
+        android:textSize="50sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtviewname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="cursive"
+        android:text="Back"
+        android:textSize="50sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/txtviewhello"
+        app:layout_constraintStart_toEndOf="@+id/txtviewhello"
+        app:layout_constraintTop_toTopOf="@+id/txtviewhello" />
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="32dp"
+        android:scaleType="centerCrop"
+        android:background="@drawable/profile_image_background"
+        android:src="@drawable/profile_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtviewname" />
+
+
+    <EditText
+        android:id="@+id/edttextname"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/edttext_background"
+        android:drawableLeft="@drawable/baseline_email_24"
+        android:drawablePadding="6dp"
+        android:ems="10"
+        android:hint="Name"
+        android:inputType="none"
+        android:padding="6dp"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <EditText
+        android:id="@+id/edttextphoneno"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/edttext_background"
+        android:drawableLeft="@drawable/baseline_email_24"
+        android:drawablePadding="6dp"
+        android:ems="10"
+        android:hint="PhoneNo"
+        android:inputType="number"
+        android:padding="6dp"
+        app:layout_constraintEnd_toEndOf="@+id/edttextemail"
+        app:layout_constraintStart_toStartOf="@+id/edttextemail"
+        app:layout_constraintTop_toBottomOf="@+id/edttextemail" />
+
+    <EditText
+        android:id="@+id/edttextemail"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/edttext_background"
+        android:drawableLeft="@drawable/baseline_email_24"
+        android:drawablePadding="6dp"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:padding="6dp"
+        app:layout_constraintEnd_toEndOf="@+id/edttextname"
+        app:layout_constraintStart_toStartOf="@+id/edttextname"
+        app:layout_constraintTop_toBottomOf="@+id/edttextname" />
+
+    <Button
+        android:id="@+id/savebtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/yellow"
+        android:text="save details"
+        android:textAllCaps="true"
+        app:layout_constraintEnd_toEndOf="@+id/edttextphoneno"
+        app:layout_constraintTop_toBottomOf="@+id/edttextphoneno" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,23 +1,10 @@
 package com.example.mealconnect.fragments
 
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.Settings
-import android.view.View
-import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.viewModels
-import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
-import com.example.mealconnect.Orders
-import com.example.mealconnect.Profile
 import com.example.mealconnect.R
 import com.example.mealconnect.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -35,21 +22,25 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding?.root)
         auth= FirebaseAuth.getInstance()
 
-        replaceFragment(dashboard())
+        val navhostfragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container) as NavHostFragment
+        navController=navhostfragment.navController
+
+
+        binding?.bottomNavigationView?.setupWithNavController(navController)
 
 
         binding?.bottomNavigationView?.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.Homem-> {
-                    replaceFragment(dashboard())
+                   navController.navigate(R.id.dashboard)
                     true
                 }
                 R.id.Ordersm->{
-                    replaceFragment(Orders())
+                    navController.navigate(R.id.orders)
                     true
                 }
-                R.id.Profilem-> {
-                    replaceFragment(Profile())
+                R.id.settingsm-> {
+                    navController.navigate(R.id.settings)
                     true
                 }
 
@@ -62,13 +53,8 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
-
-    private fun replaceFragment(fragment:Fragment){
-        val fragmentManager = supportFragmentManager
-        val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.frame_container,fragment)
-        fragmentTransaction.commit()
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp()||super.onSupportNavigateUp()
     }
 
 

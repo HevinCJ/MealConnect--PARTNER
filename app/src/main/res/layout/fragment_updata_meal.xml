@@ -11,15 +11,15 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="3dp"
-        >
+        android:layout_margin="3dp">
 
         <ImageButton
             android:id="@+id/imageButton"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:scaleType="fitXY"
+            android:layout_marginTop="16dp"
             android:background="@drawable/dashboard_ui_background"
+            android:scaleType="fitXY"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -30,10 +30,14 @@
             android:id="@+id/titletxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:boxStrokeColor="@color/yellow"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="3dp"
             android:hint="Meal Name"
+            app:boxStrokeColor="@color/yellow"
             app:hintTextColor="@color/yellow"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageButton">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -50,9 +54,11 @@
             android:id="@+id/edttxtphoneno"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:boxStrokeColor="@color/yellow"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="3dp"
             android:hint="Phone Number"
+            app:boxStrokeColor="@color/yellow"
             app:hintTextColor="@color/yellow"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -72,9 +78,11 @@
             android:id="@+id/edttxtamount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:boxStrokeColor="@color/yellow"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="3dp"
             android:hint="Amount"
+            app:boxStrokeColor="@color/yellow"
             app:hintTextColor="@color/yellow"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -94,9 +102,11 @@
             android:id="@+id/edttxtdescp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:boxStrokeColor="@color/yellow"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="3dp"
             android:hint="Description"
+            app:boxStrokeColor="@color/yellow"
             app:hintTextColor="@color/yellow"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -108,33 +118,68 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textCapSentences|textMultiLine"
-                android:textCursorDrawable="@drawable/cursor_drawable"
-                android:maxLength="100"/>
+                android:maxLength="100" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <fragment
-            android:id="@+id/mapview2"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edttxtquantity"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/updatemealbtn"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="3dp"
+            android:hint="Quantity (in Nos)"
+            app:boxStrokeColor="@color/yellow"
+            app:hintTextColor="@color/yellow"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edttxtdescp" />
+            app:layout_constraintTop_toBottomOf="@+id/edttxtdescp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtinputquantity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:maxLength="100" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <Button
-            android:id="@+id/updatemealbtn"
-            android:layout_width="match_parent"
+            android:id="@+id/Nextbtn"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Update Meal"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             android:backgroundTint="@color/yellow"
+            android:text="go to next step"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/cancelbtn"
+            app:layout_constraintEnd_toEndOf="@+id/edttxtquantity"
+            app:layout_constraintStart_toEndOf="@+id/cancelbtn"
+            app:layout_constraintTop_toTopOf="@+id/cancelbtn"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <Button
+            android:id="@+id/cancelbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="24dp"
+            android:text="cancel the item"
+            android:textAllCaps="true"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintEnd_toStartOf="@+id/Nextbtn"
+            app:layout_constraintStart_toStartOf="@+id/edttxtquantity"
+            app:layout_constraintTop_toBottomOf="@+id/edttxtquantity"
+            app:layout_constraintVertical_bias="1.0" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

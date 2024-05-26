@@ -1,9 +1,9 @@
 package com.example.mealconnect.fragments.Adapter.diffutil
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.mealconnect.utils.UserData
+import com.example.mealconnect.utils.PartnerData
 
-class DiffCallback(private var oldlist:List<UserData>,private var newlist:List<UserData>):DiffUtil.Callback() {
+class DiffCallback(private var oldlist:List<PartnerData>, private var newlist:List<PartnerData>):DiffUtil.Callback() {
     override fun getOldListSize(): Int {
         return oldlist.size
     }

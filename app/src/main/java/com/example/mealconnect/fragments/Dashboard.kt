@@ -1,27 +1,17 @@
 package com.example.mealconnect.fragments
 
 import android.annotation.SuppressLint
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.graphics.Path.Direction
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.provider.Settings
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.addCallback
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AlertDialog
-import androidx.constraintlayout.motion.widget.OnSwipe
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -30,10 +20,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mealconnect.R
 import com.example.mealconnect.databinding.FragmentDashboardBinding
 import com.example.mealconnect.fragments.Adapter.MealAdapter
+import com.example.mealconnect.utils.CustomProgressBar
+import com.example.mealconnect.utils.NetworkResult
+import com.example.mealconnect.utils.PartnerData
 import com.example.mealconnect.utils.Permissions
-import com.example.mealconnect.utils.UserData
 import com.example.mealconnect.viewmodel.MainViewModel
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.vmadalin.easypermissions.EasyPermissions
@@ -42,48 +35,66 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
-class dashboard : Fragment(),EasyPermissions.PermissionCallbacks {
+class dashboard : Fragment(), EasyPermissions.PermissionCallbacks {
 
-    private lateinit var binding:FragmentDashboardBinding
+    private lateinit var binding: FragmentDashboardBinding
 
-    private val mainviewwmodel:MainViewModel by viewModels()
-    private val adapter:MealAdapter by lazy { MealAdapter() }
+    private val mainviewwmodel: MainViewModel by viewModels()
+    private val adapter: MealAdapter by lazy { MealAdapter() }
 
-    private var databasereference:DatabaseReference?=null
-    private lateinit var newid:String
+    private lateinit var auth: FirebaseAuth
+    private lateinit var databasereference: DatabaseReference
+    private lateinit var newid: String
 
+    private lateinit var progressBar: CustomProgressBar
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        auth = FirebaseAuth.getInstance()
+        databasereference = FirebaseDatabase.getInstance().getReference("Partner").child(auth.currentUser.uid)
+
+        newid = databasereference.push().key.toString()
+    }
 
 
     @SuppressLint("NewApi")
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
 
+        binding = FragmentDashboardBinding.inflate(layoutInflater, container, false)
+
+        progressBar = CustomProgressBar(requireContext(),null)
+        binding.root.addView(progressBar)
 
 
-        binding = FragmentDashboardBinding.inflate(layoutInflater,container,false)
-        databasereference = FirebaseDatabase.getInstance().getReference("Users")
-        newid= databasereference?.push()?.key.toString()
 
 
-
-
-        mainviewwmodel.getAllData.observe(viewLifecycleOwner){userdata->
-            if (userdata!=null){
-                adapter.setdata(userdata)
-                Log.d("userdataget",userdata.toString())
+        mainviewwmodel.getAllDataFromFirebase {userdata->
+            when(userdata){
+                is NetworkResult.Error -> {
+                    progressBar.show()
+                }
+                is NetworkResult.Loading -> {
+                    progressBar.show()
+                }
+                is NetworkResult.Success -> {
+                    if (userdata.data!=null){
+                        adapter.setdata(userdata.data)
+                    }
+                   progressBar.hide()
+                }
             }
         }
 
 
 
         binding.actionbtntoadd.setOnClickListener {
-                if (Permissions.isPermissionsGranted(requireContext())){
-                    findNavController().navigate(R.id.action_dashboard_to_addmeal)
-                }else{
-                    Permissions.requestPermissions(requireParentFragment())
-                }
+            if (Permissions.isPermissionsGranted(requireContext())) {
+                findNavController().navigate(R.id.action_dashboard_to_addmeal)
+            } else {
+                Permissions.requestPermissions(requireParentFragment())
+            }
         }
 
 
@@ -94,17 +105,26 @@ class dashboard : Fragment(),EasyPermissions.PermissionCallbacks {
 
 
 
-     return binding.root
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            requireActivity().finish()
+        }
+
     }
 
     private fun setUpRecyclerView() {
-        binding.recyclerview.adapter=adapter
-        binding.recyclerview.layoutManager=LinearLayoutManager(requireActivity())
+        binding.recyclerview.adapter = adapter
+        binding.recyclerview.layoutManager = LinearLayoutManager(requireActivity())
     }
 
-    private fun swipeToDelete(recyclerView: RecyclerView){
+    private fun swipeToDelete(recyclerView: RecyclerView) {
 
-         val swipeToDelete = object :ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.RIGHT){
+        val swipeToDelete = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
             override fun onMove(
                 recyclerView: RecyclerView,
                 viewHolder: RecyclerView.ViewHolder,
@@ -125,48 +145,53 @@ class dashboard : Fragment(),EasyPermissions.PermissionCallbacks {
 
     }
 
-    private fun deleteItemFromFirebase(item:UserData?) {
-        lifecycleScope.launch(Dispatchers.IO){
-            if (item!=null){
-                databasereference?.child(item.id)?.removeValue()?.addOnCompleteListener {
-                    if (it.isSuccessful){
+    private fun deleteItemFromFirebase(item: PartnerData?) {
+        lifecycleScope.launch(Dispatchers.IO) {
+            if (item != null) {
+                databasereference.child(item.key).removeValue().addOnCompleteListener {
+                    if (it.isSuccessful) {
                         showsnackbar(item)
                     }
-                }?.addOnFailureListener {
-                    Toast.makeText(requireContext(),"Failed to Updata:${item.mealname}",Toast.LENGTH_SHORT).show()
+                }.addOnFailureListener {
+                    Toast.makeText(
+                        requireContext(), "Failed to Update:${item.mealname}", Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
-            }
+        }
 
     }
 
-    private fun showsnackbar(item: UserData?) {
-        val snackbar = Snackbar.make(requireView(), "Deleted ${item?.mealname}", Snackbar.LENGTH_LONG)
+    private fun showsnackbar(item: PartnerData?) {
+        val snackbar =
+            Snackbar.make(requireView(), "Deleted ${item?.mealname}", Snackbar.LENGTH_LONG)
         snackbar.setAction("Undo") {
-            if (item!=null){
+            if (item != null) {
                 addItemToFirebaseSnkbar(item)
             }
-            }.show()
-        }
+        }.show()
+    }
 
 
-
-    private fun addItemToFirebaseSnkbar(item: UserData) {
+    private fun addItemToFirebaseSnkbar(item:PartnerData) {
         lifecycleScope.launch(Dispatchers.Main) {
-            val newId = databasereference?.push()?.key.toString()
 
-            val newuser = UserData(
+            val newuser = PartnerData(
                 item.id,
+                item.key,
                 item.mealname,
                 item.image,
                 item.phoneno,
                 item.amount,
                 item.descp,
-                item.location
+                item.partnerquantity,
+                item.location,
+                item.timestamp
             )
-            databasereference?.child(item.id)?.setValue(newuser)?.addOnSuccessListener{
-                Toast.makeText(requireContext(), "Added ${item.mealname}", Toast.LENGTH_SHORT).show()
-                }
+            databasereference.child(item.key).setValue(newuser).addOnSuccessListener {
+                Toast.makeText(requireContext(), "Added ${item.mealname}", Toast.LENGTH_SHORT)
+                    .show()
+            }
         }
     }
 
@@ -174,9 +199,7 @@ class dashboard : Fragment(),EasyPermissions.PermissionCallbacks {
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onPermissionsDenied(requestCode: Int, perms: List<String>) {
         if (EasyPermissions.somePermissionPermanentlyDenied(requireActivity(), perms)) {
-            SettingsDialog.Builder(requireActivity())
-                .build()
-                .show()
+            SettingsDialog.Builder(requireActivity()).build().show()
         } else {
             Permissions.requestPermissions(requireParentFragment())
         }
@@ -187,16 +210,13 @@ class dashboard : Fragment(),EasyPermissions.PermissionCallbacks {
     }
 
     override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
+        requestCode: Int, permissions: Array<out String>, grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        EasyPermissions.onRequestPermissionsResult(requestCode,permissions,grantResults,requireContext())
+        EasyPermissions.onRequestPermissionsResult(
+            requestCode, permissions, grantResults, requireContext()
+        )
     }
-
-
-
 
 
 }

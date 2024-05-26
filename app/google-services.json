@@ -1,13 +1,14 @@
 {
   "project_info": {
-    "project_number": "289426590044",
-    "project_id": "mealconnect-22930",
-    "storage_bucket": "mealconnect-22930.appspot.com"
+    "project_number": "280336637626",
+    "firebase_url": "https://mealconnectpartner-default-rtdb.firebaseio.com",
+    "project_id": "mealconnectpartner",
+    "storage_bucket": "mealconnectpartner.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:289426590044:android:b3ee79501c0df0da1f1999",
+        "mobilesdk_app_id": "1:280336637626:android:cd8a01ce21632878e66c83",
         "android_client_info": {
           "package_name": "com.example.mealconnect"
         }
@@ -15,7 +16,32 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyASpzjsk0ZeTRj88VdVfY1ET40UiiX-Xc4"
+          "current_key": "AIzaSyA4gBqywy07IZj87wge9yvAubTWgYOkIbE"
+        },
+        {
+          "current_key": "AIzaSyCWF_Zq1jKKwFbSHMpyJmyyL_ohsPF35O0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:280336637626:android:5bb5c32a684136bde66c83",
+        "android_client_info": {
+          "package_name": "com.example.mealconnectuser"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4gBqywy07IZj87wge9yvAubTWgYOkIbE"
+        },
+        {
+          "current_key": "AIzaSyCWF_Zq1jKKwFbSHMpyJmyyL_ohsPF35O0"
         }
       ],
       "services": {

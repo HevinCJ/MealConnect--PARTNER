@@ -1,18 +1,23 @@
 package com.example.mealconnect.utils
 
-import LocationData
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
-import kotlinx.parcelize.RawValue
+ class UserData{
+    var username:String?=null
+    var phoneno:String?=null
+    var email:String?=null
+    var password:String?=null
+    lateinit var profileimage:String
 
 
-@Parcelize
-data class UserData(
-    var id: String = "",
-    var mealname: String = "",
-    var image: String = "",
-    var phoneno: String = "",
-    var amount: String = "",
-    var descp: String = "",
-    var location: @RawValue LocationData = LocationData()
-):Parcelable
+    constructor(){}
+
+    constructor(username:String,email:String,password:String){
+       this.username=username
+       this.email=email
+       this.password=password
+       this.phoneno=""
+       this.profileimage=""
+
+    }
+ }
+
+

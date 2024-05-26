@@ -1,24 +1,22 @@
 package com.example.mealconnect.fragments.Adapter
 
-import android.annotation.SuppressLint
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.mealconnect.databinding.MealAdapterBinding
 import com.example.mealconnect.fragments.Adapter.diffutil.DiffCallback
-import com.example.mealconnect.utils.UserData
+import com.example.mealconnect.utils.PartnerData
 
 class MealAdapter:RecyclerView.Adapter<MealAdapter.mealViewHolder>() {
 
-     var datalist:List<UserData> = emptyList()
+     var datalist:List<PartnerData> = emptyList()
 
-    class mealViewHolder(private val binding:MealAdapterBinding): RecyclerView.ViewHolder(binding.root) {
+    class mealViewHolder(private val binding:MealAdapterBinding): ViewHolder(binding.root) {
 
-        fun bindmeal(userData: UserData){
+        fun bindmeal(userData: PartnerData){
                binding.userdata = userData
                 binding.executePendingBindings()
                 Log.d("datalist",userData.toString())
@@ -40,7 +38,7 @@ class MealAdapter:RecyclerView.Adapter<MealAdapter.mealViewHolder>() {
     }
 
 
-    fun setdata(userData: List<UserData>) {
+    fun setdata(userData: List<PartnerData>) {
         val diffCallback = DiffCallback(datalist, userData)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
         datalist=userData

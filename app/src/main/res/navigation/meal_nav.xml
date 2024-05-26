@@ -39,27 +39,52 @@
         <action
             android:id="@+id/action_mapsFragment_to_addmeal"
             app:destination="@id/addmeal" />
+        <action
+            android:id="@+id/action_mapsFragment_to_dashboard"
+            app:destination="@id/dashboard" />
+        <argument
+            android:name="currentitem"
+            app:argType="com.example.mealconnect.utils.PartnerData" />
+        <argument
+            android:name="isUpdated"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
     <fragment
         android:id="@+id/updataMeal"
         android:name="com.example.mealconnect.UpdataMeal"
         android:label="fragment_updata_meal"
         tools:layout="@layout/fragment_updata_meal" >
+        <argument
+            android:name="CurrentMeal"
+            app:argType="com.example.mealconnect.utils.PartnerData" />
+        <action
+            android:id="@+id/action_updataMeal_to_mapsFragment"
+            app:destination="@id/mapsFragment" />
         <action
             android:id="@+id/action_updataMeal_to_dashboard"
             app:destination="@id/dashboard" />
-        <argument
-            android:name="CurrentMeal"
-            app:argType="com.example.mealconnect.utils.UserData" />
     </fragment>
     <fragment
         android:id="@+id/orders"
         android:name="com.example.mealconnect.Orders"
         android:label="fragment_orders"
-        tools:layout="@layout/fragment_orders" />
+        tools:layout="@layout/fragment_orders" >
+        <action
+            android:id="@+id/action_orders_to_dashboard"
+            app:destination="@id/dashboard" />
+    </fragment>
     <fragment
         android:id="@+id/profile"
-        android:name="com.example.mealconnect.Profile"
+        android:name="com.example.mealconnect.fragments.Profile"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profile_to_dashboard"
+            app:destination="@id/dashboard" />
+    </fragment>
+    <fragment
+        android:id="@+id/settings"
+        android:name="com.example.mealconnect.fragments.Settings"
+        android:label="Settings" />
 </navigation>

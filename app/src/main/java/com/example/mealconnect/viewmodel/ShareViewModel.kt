@@ -17,13 +17,10 @@ class ShareViewModel(application: Application):AndroidViewModel(application) {
         amount: String,
         descp: String,
         image: String,
-        location:LocationData
+        location:LocationData,
+        quantity:String
     ):Boolean{
-        return if(TextUtils.isEmpty(mealname)||TextUtils.isEmpty(number)||TextUtils.isEmpty(amount)||TextUtils.isEmpty(descp)||TextUtils.isEmpty(image)||TextUtils.isEmpty(location.toString())){
-            false
-        }else{
-            true
-        }
+        return !(TextUtils.isEmpty(mealname)||TextUtils.isEmpty(number)||TextUtils.isEmpty(amount)||TextUtils.isEmpty(descp)||TextUtils.isEmpty(image)||TextUtils.isEmpty(location.toString())||TextUtils.isEmpty(quantity))
     }
 
 
